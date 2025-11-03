@@ -1,0 +1,221 @@
+{
+  "CategoryType": 120,
+  "ad_info": {
+    "about_this_ad_info": {
+      "about_this_ad_adjust_settings": "Change your ad personalisation settings",
+      "about_this_ad_content_type": 2,
+      "about_this_ad_feedback": "Was this information helpful?",
+      "about_this_ad_feedback_btn_no": "No",
+      "about_this_ad_feedback_btn_yes": "Yes",
+      "about_this_ad_feedback_response": "Thanks for submitting your feedback.",
+      "about_this_ad_items": [
+        {
+          "group_title": "This ad may be based on:",
+          "orientation_info": [
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "geo",
+              "info_type": 3,
+              "orientation_item": "",
+              "orientation_text": "Your primary location %s",
+              "orientation_track": "",
+              "switch": 0,
+              "url": ""
+            },
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "",
+              "info_type": 1,
+              "orientation_item": "",
+              "orientation_text": "System information such as device type and operating system",
+              "orientation_track": "",
+              "switch": 0,
+              "url": ""
+            },
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "",
+              "info_type": 1,
+              "orientation_item": "",
+              "orientation_text": "Your activities on-TikTok and/or off-TikTok, depending on your ad personalisation settings",
+              "orientation_track": "",
+              "switch": 0,
+              "url": ""
+            }
+          ]
+        },
+        {
+          "group_title": "What else affects the ads you see?",
+          "orientation_info": [
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "",
+              "info_type": 1,
+              "orientation_item": "how TikTok ads work",
+              "orientation_text": "The ads you see may be influenced by additional user data or advertisers’ ad targeting options not listed here. Learn more about how TikTok ads work.",
+              "orientation_track": "",
+              "switch": 0,
+              "url": "https://www.tiktok.com/safety/en/ads-and-data/"
+            }
+          ]
+        }
+      ],
+      "about_this_ad_title": "About this ad",
+      "advertiser_items": [
+        {
+          "group_title": "About the advertiser:",
+          "orientation_info": [
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "",
+              "info_type": 10001,
+              "orientation_item": "Business name: ",
+              "orientation_text": "Business name: Interdog Media Limited",
+              "orientation_track": "Interdog Media Limited",
+              "switch": 0,
+              "url": ""
+            },
+            {
+              "disable_text": "",
+              "enable_text": "",
+              "geoCountry_type": "country",
+              "info_type": 10002,
+              "orientation_item": "Location: ",
+              "orientation_text": "Location: %s",
+              "orientation_track": "",
+              "switch": 0,
+              "url": ""
+            },
+            {
+              "disable_text": "You've hidden ads from interdog media limited",
+              "enable_text": "Show fewer ads from interdog media limited",
+              "geoCountry_type": "",
+              "info_type": 10003,
+              "orientation_item": "interdog media limited",
+              "orientation_text": "",
+              "orientation_track": "",
+              "switch": 1,
+              "url": ""
+            }
+          ]
+        }
+      ],
+      "business_en_name_used": "false",
+      "country_code": "VG",
+      "geo_id": "1835841",
+      "match_audience_tags": ""
+    },
+    "ad_id": 1847589362923617,
+    "advertiser_id": "7530868810740416528",
+    "animation_type": 1,
+    "button_color": "#CCCC00",
+    "button_text": "Learn more",
+    "charge_type": 9,
+    "creative_id": 1847593269007458,
+    "is_normal": false,
+    "is_promotional_music": true,
+    "log_extra": "{\"ad_id\":1847589362923617,\"ad_price\":\"aQjVNwAHlvFpCNU3AAeW8Qp7Wavz6bwzyGy0Lw\",\"ad_user_agent\":\"\",\"add_to_cart\":false,\"advertiser_id\":7530868810740416528,\"age\":18,\"aid\":1988,\"aid_layer_type\":5,\"app_id\":1988,\"auction_roi2_type\":0,\"campaign_id\":1847589308015746,\"city_id\":0,\"classify\":\"sale\",\"click_id\":\"E_C_P_CrsBJxOs_p4L2EDeXsqAWmTbBjfLlnqtFAGk-OUQdlkHwyQ19oNQvdrgP63vQLqy777dH_lWQ6zbh7TFUyp_aAwsuZa_z8FBk04NMlShfEro5pUxiRVJf5IsQxp5zYixMy6sTU6xpgCsQZZx93RvVB7Zn56rZ9qTIh1nPDS4OBGydU3WYYd89xuvbpPQVUcRh5aag4nYpu4k7pUWsmvmIPMV9z2LWV4nymEG_1peqdS4uERFsWzLdx1brNSDgBIEdjIuMA\",\"country_id\":\"KR\",\"creative_id\":1847593269007458,\"cur_exch_usd\":1,\"dma_id\":0,\"enable_review_tab\":false,\"gab_auction_price\":23024,\"gender\":1,\"gmv_max_bid_type\":0,\"gmv_max_session_id\":0,\"idc\":3,\"if_smart_plus_ad\":false,\"image_mode\":15,\"ingestion_dc\":\"my\",\"is_app_profile_page_ad\":0,\"is_pack_v2\":true,\"is_spark_ads\":0,\"is_support_odfl\":1,\"is_web_vsa\":0,\"item_source\":0,\"live_traffic_type\":0,\"material_arch_flag\":0,\"orbs\":\"aQjVNwAHlyFpCNU3AAeXIbG5920yIIQW-Rsbng\",\"pack_act\":\"12\",\"pack_bingo\":1,\"pack_item_id\":\"7567747867092241665\",\"pack_ot\":\"3\",\"pack_pt\":\"9\",\"pack_so\":\"7\",\"placement\":\"unknown\",\"province_id\":0,\"req_id\":\"2025110400155033B85D81A989D81B3C71\",\"rit\":11988001,\"roi2_creative_type\":0,\"send_likely_vregion\":\"Singapore-Central\",\"send_time\":1762186551,\"style_id\":100766,\"style_ids\":[100766],\"test_flag\":0,\"translate_type\":0,\"unity_price\":\"aQjVNwAHlwFpCNU3AAeXAaYaCkH7aCpu7qV7UQ\"}",
+    "raw_ad_data": "{\"web_title\":\"사무실 보안요원\",\"button_have_arrow\":false,\"label\":{\"color\":\"#00000000\",\"text\":\"Sponsored\",\"color_text\":\"#00000000\"},\"animation_type\":1,\"use_ordinary_web\":false,\"web_url\":\"https://smartdealsearch.com/p/jasehi-alabogi-bilding-gyeongbiweon-jeongbowa-boan-ganghwa-jeonryag-111155.webm?arb_campaign_id=330533\\u0026placement_type=unknown\\u0026utm_source=tt\\u0026ad_name=BuildSer_ko_Oct27%20-%208\\u0026ad_group_id=1847589362923617\\u0026arb_ad_id=1698113\\u0026network=tiktok\\u0026uid=\\u0026cpc=\\u0026utm_campaign=arb-330533\\u0026section_id=11988001\\u0026ad_id=1847593269007458\\u0026site_id=__SITE__\\u0026utm_medium=1705\\u0026short_name=tt\\u0026campaign_id=1847589308015746\\u0026publisher_name=__PUBLISHER__\\u0026arb_direct=on\\u0026ttclid=E_C_P_CtQBmHWvd3dNHtHkt1kwygTV4zYy-duAhnFQIzCCUb7_rczj8uMowwQzzwGIfNivi5c4zYl7Tg70OB9GP_rjUeVeGG1cIs8aN8hf_cxvkaE6LAiR1mmuVua1Z74GMlwwpeskt8wZDLUfzMBl_xe3SrdaXhv7zXxOcC8UuOiyjGtUqSl86TI4Dewjhml8GQlrljDHUKJA39asxSN2GFkk7Q-Pa2a-pejX1EnpJWGgn8xO1VuRzLLAoDfjS9Bc8n2I6T4swdsA4zSq2vd0eQInSl2yO2_Op8gSBHYyLjA\",\"show_button_color_seconds\":0,\"objective_type\":0,\"external_type\":0,\"ab_extra\":{\"spark_ads_left_swipe_guide_type\":0,\"enable_native_author_auto_pull_up_flag_live_room\":false,\"hit_spark_ads_jump\":0,\"need_bootstrap_text\":false,\"enable_hotel_sp_for_aigc\":0,\"enable_discount_coupon_new_text\":0,\"cta_position_test\":0},\"ad_style_ab_extra\":{},\"rit\":11988001,\"show_button_seconds\":5,\"vast\":{\"providerType\":2,\"vastWrapperCount\":1},\"learn_more_bg_color\":\"#CCCC00\",\"use_default_color\":false,\"landing_page_config\":{\"ai_components\":null,\"iab_history\":{\"history_function_status\":1,\"show_history_user_guide\":false}},\"charge_type\":9,\"system_origin\":7,\"ad_source_type\":1,\"log_extra\":\"{\\\"ad_id\\\":1847589362923617,\\\"ad_price\\\":\\\"aQjVNwAHlvFpCNU3AAeW8Qp7Wavz6bwzyGy0Lw\\\",\\\"ad_user_agent\\\":\\\"\\\",\\\"add_to_cart\\\":false,\\\"advertiser_id\\\":7530868810740416528,\\\"age\\\":18,\\\"aid\\\":1988,\\\"aid_layer_type\\\":5,\\\"app_id\\\":1988,\\\"auction_roi2_type\\\":0,\\\"campaign_id\\\":1847589308015746,\\\"city_id\\\":0,\\\"classify\\\":\\\"sale\\\",\\\"click_id\\\":\\\"E_C_P_CrsBJxOs_p4L2EDeXsqAWmTbBjfLlnqtFAGk-OUQdlkHwyQ19oNQvdrgP63vQLqy777dH_lWQ6zbh7TFUyp_aAwsuZa_z8FBk04NMlShfEro5pUxiRVJf5IsQxp5zYixMy6sTU6xpgCsQZZx93RvVB7Zn56rZ9qTIh1nPDS4OBGydU3WYYd89xuvbpPQVUcRh5aag4nYpu4k7pUWsmvmIPMV9z2LWV4nymEG_1peqdS4uERFsWzLdx1brNSDgBIEdjIuMA\\\",\\\"country_id\\\":\\\"KR\\\",\\\"creative_id\\\":1847593269007458,\\\"cur_exch_usd\\\":1,\\\"dma_id\\\":0,\\\"enable_review_tab\\\":false,\\\"gab_auction_price\\\":23024,\\\"gender\\\":1,\\\"gmv_max_bid_type\\\":0,\\\"gmv_max_session_id\\\":0,\\\"idc\\\":3,\\\"if_smart_plus_ad\\\":false,\\\"image_mode\\\":15,\\\"ingestion_dc\\\":\\\"my\\\",\\\"is_app_profile_page_ad\\\":0,\\\"is_pack_v2\\\":true,\\\"is_spark_ads\\\":0,\\\"is_support_odfl\\\":1,\\\"is_web_vsa\\\":0,\\\"item_source\\\":0,\\\"live_traffic_type\\\":0,\\\"material_arch_flag\\\":0,\\\"orbs\\\":\\\"aQjVNwAHlyFpCNU3AAeXIbG5920yIIQW-Rsbng\\\",\\\"pack_act\\\":\\\"12\\\",\\\"pack_bingo\\\":1,\\\"pack_item_id\\\":\\\"7567747867092241665\\\",\\\"pack_ot\\\":\\\"3\\\",\\\"pack_pt\\\":\\\"9\\\",\\\"pack_so\\\":\\\"7\\\",\\\"placement\\\":\\\"unknown\\\",\\\"province_id\\\":0,\\\"req_id\\\":\\\"2025110400155033B85D81A989D81B3C71\\\",\\\"rit\\\":11988001,\\\"roi2_creative_type\\\":0,\\\"send_likely_vregion\\\":\\\"Singapore-Central\\\",\\\"send_time\\\":1762186551,\\\"style_id\\\":100766,\\\"style_ids\\\":[100766],\\\"test_flag\\\":0,\\\"translate_type\\\":0,\\\"unity_price\\\":\\\"aQjVNwAHlwFpCNU3AAeXAaYaCkH7aCpu7qV7UQ\\\"}\",\"ad_id\":1847589362923617,\"button_text\":\"Learn more\",\"report_enable\":true,\"about_this_ad_info\":{\"about_this_ad_feedback_btn_no\":\"No\",\"about_this_ad_feedback_response\":\"Thanks for submitting your feedback.\",\"advertiser_items\":[{\"group_title\":\"About the advertiser:\",\"orientation_info\":[{\"orientation_item\":\"Business name: \",\"orientation_track\":\"Interdog Media Limited\",\"switch\":0,\"info_type\":10001,\"orientation_text\":\"Business name: Interdog Media Limited\"},{\"orientation_item\":\"Location: \",\"geo_country_type\":\"country\",\"switch\":0,\"info_type\":10002,\"orientation_text\":\"Location: %s\"},{\"info_type\":10003,\"orientation_item\":\"interdog media limited\",\"enable_text\":\"Show fewer ads from interdog media limited\",\"disable_text\":\"You've hidden ads from interdog media limited\",\"switch\":1}]}],\"geo_id\":\"1835841\",\"about_this_ad_feedback\":\"Was this information helpful?\",\"about_this_ad_title\":\"About this ad\",\"about_this_ad_adjust_settings\":\"Change your ad personalisation settings\",\"about_this_ad_feedback_btn_yes\":\"Yes\",\"about_this_ad_items\":[{\"group_title\":\"This ad may be based on:\",\"orientation_info\":[{\"geo_country_type\":\"geo\",\"switch\":0,\"info_type\":3,\"orientation_text\":\"Your primary location %s\"},{\"info_type\":1,\"orientation_text\":\"System information such as device type and operating system\",\"switch\":0},{\"info_type\":1,\"orientation_text\":\"Your activities on-TikTok and/or off-TikTok, depending on your ad personalisation settings\",\"switch\":0}]},{\"group_title\":\"What else affects the ads you see?\",\"orientation_info\":[{\"orientation_text\":\"The ads you see may be influenced by additional user data or advertisers’ ad targeting options not listed here. Learn more about how TikTok ads work.\",\"url\":\"https://www.tiktok.com/safety/en/ads-and-data/\",\"orientation_item\":\"how TikTok ads work\",\"switch\":0,\"info_type\":1}]}],\"country_code\":\"VG\",\"business_en_name_used\":false,\"about_this_ad_content_type\":2},\"advertiser_id\":\"7530868810740416528\",\"creative_id\":1847593269007458,\"type\":\"web\",\"track_url_list\":{\"url_list\":[]},\"ad_label_text\":\"\"}",
+    "tag_text": "Sponsored",
+    "vast": {
+      "providerType": 2,
+      "vastWrapperCount": 1
+    },
+    "web_url": "https://smartdealsearch.com/p/jasehi-alabogi-bilding-gyeongbiweon-jeongbowa-boan-ganghwa-jeonryag-111155.webm?arb_campaign_id=330533&placement_type=unknown&utm_source=tt&ad_name=BuildSer_ko_Oct27%20-%208&ad_group_id=1847589362923617&arb_ad_id=1698113&network=tiktok&uid=&cpc=&utm_campaign=arb-330533&section_id=11988001&ad_id=1847593269007458&site_id=__SITE__&utm_medium=1705&short_name=tt&campaign_id=1847589308015746&publisher_name=__PUBLISHER__&arb_direct=on&ttclid=E_C_P_CtQBmHWvd3dNHtHkt1kwygTV4zYy-duAhnFQIzCCUb7_rczj8uMowwQzzwGIfNivi5c4zYl7Tg70OB9GP_rjUeVeGG1cIs8aN8hf_cxvkaE6LAiR1mmuVua1Z74GMlwwpeskt8wZDLUfzMBl_xe3SrdaXhv7zXxOcC8UuOiyjGtUqSl86TI4Dewjhml8GQlrljDHUKJA39asxSN2GFkk7Q-Pa2a-pejX1EnpJWGgn8xO1VuRzLLAoDfjS9Bc8n2I6T4swdsA4zSq2vd0eQInSl2yO2_Op8gSBHYyLjA"
+  },
+  "author": {
+    "avatarLarger": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "avatarMedium": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "avatarThumb": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "ftc": false,
+    "id": "7531479232251167751",
+    "nickname": "사무실 보안요원",
+    "openFavorite": false,
+    "privateAccount": false,
+    "relation": 0,
+    "secUid": "MS4wLjABAAAAVXzMKWmaSE-e4AhP21hm4L0tM3b_IlT-JnJwIbYx_GqzcohJryFrSxYL0kiRulQK",
+    "secret": false,
+    "signature": "",
+    "uniqueId": "사무실 보안요원"
+  },
+  "authorStats": {
+    "diggCount": 0,
+    "followerCount": 0,
+    "followingCount": 0,
+    "friendCount": 0,
+    "heart": 0,
+    "heartCount": 0,
+    "videoCount": 0
+  },
+  "authorStatsV2": {
+    "diggCount": "0",
+    "followerCount": "0",
+    "followingCount": "0",
+    "friendCount": "0",
+    "heart": "0",
+    "heartCount": "0",
+    "videoCount": "0"
+  },
+  "createTime": 1762003610,
+  "desc": "자세히 알아보기: 빌딩 경비원",
+  "digged": false,
+  "duetDisplay": 0,
+  "forFriend": false,
+  "id": "7567747867092241665",
+  "isAd": true,
+  "itemCommentStatus": 0,
+  "item_control": {
+    "can_comment": true,
+    "can_repost": false,
+    "can_share": true
+  },
+  "music": {
+    "coverLarge": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "coverMedium": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "coverThumb": "https://p16-sign-sg.tiktokcdn.com/ad-site-i18n-sg/20251030c7c7e4a1b564c37d4c53bd89~tplv-tiktokx-origin.image?dr=14575&refresh_token=15165713&x-expires=1793721600&x-signature=zdBrqnCUbPth95zZIDDvfgpgR3c%3D&t=4d5b0474&ps=13740610&shp=5fff6923&shcp=af611e6c&idc=my",
+    "id": "7567747880184728338",
+    "isCopyrighted": false,
+    "original": false,
+    "playUrl": "http://v19-web-newkey.tiktokcdn.com/fa233bfcf406faf28f20e401e3ac3084/6908e35e/video/tos/alisg/tos-alisg-v-27dcd7/oIGNADqIAAFgBbbfUgmMEQpTFAJ3BC5eEIqBAk/?a=1988&bti=OjU4QC8tM2A%3D&ch=0&cr=0&dr=0&er=0&lr=default&cd=0%7C0%7C0%7C0&br=250&bt=125&ds=5&ft=.CApiInz7Thf3F6PXq8Zmo&mime_type=audio_mpeg&qs=13&rc=MzZvO205cjkzNzMzODU8NEBpMzZvO205cjkzNzMzODU8NEAta2YwMmRzaTBhLS1kMS1zYSMta2YwMmRzaTBhLS1kMS1zcw%3D%3D&vvpl=1&l=2025110400155033B85D81A989D81B3C71&btag=e00078000",
+    "title": "Promoted Music"
+  },
+  "officalItem": false,
+  "originalItem": false,
+  "privateItem": false,
+  "secret": false,
+  "shareEnabled": true,
+  "stats": {
+    "collectCount": 0,
+    "commentCount": 0,
+    "diggCount": 3,
+    "playCount": 2158,
+    "shareCount": 0
+  },
+  "statsV2": {
+    "collectCount": "0",
+    "commentCount": "0",
+    "diggCount": "3",
+    "playCount": "2158",
+    "repostCount": "0",
+    "shareCount": "0"
+  },
+  "stitchDisplay": 0,
+  "video": {
+    "cover": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-p-0051c001-sg/ocxdv5BWIIFuGboDACSGMGfCDQgegHpeAALLgb~tplv-tiktokx-origin.image?dr=14575&refresh_token=6b32e96d&x-expires=1762207200&x-signature=5IDZ4Fr7JpFT7Wlqnu9shIkUmHQ%3D&t=4d5b0474&ps=13740610&shp=af611e6c&shcp=81f88b70&idc=my",
+    "downloadAddr": "https://api.tiktokv.com/aweme/v1/play/?video_id=v10033g50000d430brnog65u9fqs72lg&line=0&watermark=0&logo_name=tiktok_m&source=PackSourceEnum_FEED&file_id=6910c6795ec34856842f3ecb3aec3083&item_id=0&shp=af611e6c&shcp=-",
+    "duration": 23723,
+    "dynamicCover": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-p-0051c001-sg/ocxdv5BWIIFuGboDACSGMGfCDQgegHpeAALLgb~tplv-tiktokx-origin.image?dr=14575&refresh_token=6b32e96d&x-expires=1762207200&x-signature=5IDZ4Fr7JpFT7Wlqnu9shIkUmHQ%3D&t=4d5b0474&ps=13740610&shp=af611e6c&shcp=81f88b70&idc=my",
+    "height": 640,
+    "id": "7567747867092241665",
+    "originCover": "https://p16-sign-sg.tiktokcdn.com/tos-alisg-p-0051c001-sg/ocxdv5BWIIFuGboDACSGMGfCDQgegHpeAALLgb~tplv-tiktok-shrink:640:640.jpeg?dr=14571&refresh_token=6887cca7&x-expires=1762207200&x-signature=p6afMhGx0QVENRSLKHS1g4yJlNc%3D&t=4d5b0474&ps=13740610&shp=af611e6c&shcp=81f88b70&idc=my",
+    "playAddr": "https://v16-web-newkey.tiktokcdn.com/0f7dfcc74300a0df123a26ad2f29b32c/690929ae/video/tos/alisg/tos-alisg-ve-0051c001-sg/oQWb5DIAuHLZdMgfGevdCEAQGeAPLDgFHCkSAI/?a=1988&bti=OjU4QC8tM2A%3D&ch=0&cr=0&dr=0&lr=all&net=0&cd=0%7C0%7C0%7C0&br=2610&bt=1305&cs=0&ds=3&ft=LrkagouyD12NvGoMQ.IxRG1StlBF-UjNSVopiX&mime_type=video_mp4&qs=0&rc=N2ZoaWZpaDZmOTNnZTw7N0BpajV2aXg5cnUzNzMzODYzNEBiLjY2Nl5eXi0xYi9gYi8xYSNpNG42MmRrXzBhLS1kMC1zcw%3D%3D&vvpl=1&l=2025110400155033B85D81A989D81B3C71&btag=e000b8000",
+    "ratio": "720p",
+    "volumeInfo": {},
+    "width": 360
+  }
+}
