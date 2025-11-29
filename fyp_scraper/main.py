@@ -19,8 +19,8 @@ def main():
     redis_client = redis.Redis(
         host=os.getenv("REDIS_HOST", "localhost"),
         port=os.getenv("REDIS_PORT", 6379),
-        username=os.getenv('REDIS_USERNAME', None),
-        password=os.getenv('REDIS_PASSWORD', None),
+        # username=os.getenv('REDIS_USERNAME', None),
+        # password=os.getenv('REDIS_PASSWORD', None),
         db=0
     )
 

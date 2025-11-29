@@ -10,8 +10,10 @@ load_dotenv(dotenv_path=env_path)
 # Initialize Celery app
 celery_app = Celery(
     'tiktok_scraper',
-    broker=f"redis://{os.getenv('REDIS_USERNAME', '')}:{os.getenv('REDIS_PASSWORD', '')}@{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', 6379)}/0",
-    backend=f"redis://{os.getenv('REDIS_USERNAME', '')}:{os.getenv('REDIS_PASSWORD', '')}@{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', 6379)}/0"
+    # broker=f"redis://{os.getenv('REDIS_USERNAME', '')}:{os.getenv('REDIS_PASSWORD', '')}@{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', 6379)}/0",
+    broker=f"redis://{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', 6379)}/0",
+    backend=f"redis://{os.getenv('REDIS_HOST', 'localhost')}:{os.getenv('REDIS_PORT', 6379)}/0",
+    include=['profile_scraper']
 )
 
 # Celery configuration
