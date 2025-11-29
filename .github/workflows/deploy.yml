@@ -1,0 +1,86 @@
+name: Deploy
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  REGISTRY: registry.digitalocean.com
+  REGISTRY_NAME: ${{ secrets.DO_REGISTRY_NAME }}
+
+jobs:
+  build-and-push:
+    name: Build and Push Images
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        service:
+          - name: profile_scraper
+            context: ./profile_scraper
+          - name: video_downloader
+            context: ./video_downloader
+          - name: fyp_scraper
+            context: ./fyp_scraper
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_API_TOKEN }}
+      
+      - name: Login to Container Registry
+        run: doctl registry login --expiry-seconds 1200
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.REGISTRY_NAME }}/${{ matrix.service.name }}
+          tags: |
+            type=ref,event=tag
+            type=sha,prefix=
+            type=raw,value=latest,enable={{is_default_branch}}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.service.context }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  deploy:
+    name: Deploy to Server
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' || github.event.inputs.environment == 'production'
+    
+    steps:
+      - name: Deploy notification
+        run: |
+          echo "🚀 Deployment triggered for version ${{ github.ref_name }}"
+          echo "Images pushed to Digital Ocean Container Registry"
+          echo ""
+          echo "To deploy, SSH to your server and run:"
+          echo "  docker-compose pull"
+          echo "  docker-compose up -d"
+

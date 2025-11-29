@@ -1,0 +1,156 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      
+      - name: Install linting dependencies
+        run: |
+          pip install ruff mypy types-redis
+      
+      - name: Lint with Ruff
+        run: |
+          ruff check . --ignore E501,F401,F811 --exclude venv,venv_wsl,__pycache__,.git
+      
+      - name: Type check shared modules
+        run: |
+          mypy shared/ --ignore-missing-imports --no-error-summary || true
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest pytest-cov pytest-mock
+          pip install -r requirements.txt
+      
+      - name: Run tests with coverage
+        env:
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          SPACES_REGION_NAME: nyc3
+          SPACES_SPACE_NAME: test-bucket
+          SPACES_ACCESS_KEY: test-key
+          SPACES_SECRET_KEY: test-secret
+          DATACENTER_PROXY_HOST: proxy.example.com
+          DATACENTER_PROXY_PORT: 8080
+          DATACENTER_PROXY_USERNAME: testuser
+          DATACENTER_PROXY_PASSWORD: testpass
+        run: |
+          pytest tests/ -v --cov=shared --cov=profile_scraper --cov=fyp_scraper --cov=video_downloader --cov-report=xml --cov-report=term-missing
+      
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: github.event_name == 'push'
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: false
+        continue-on-error: true
+
+  docker-build:
+    name: Docker Build Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build profile_scraper image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./profile_scraper
+          push: false
+          tags: profile_scraper:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Build video_downloader image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./video_downloader
+          push: false
+          tags: video_downloader:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+      
+      - name: Build fyp_scraper image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./fyp_scraper
+          push: false
+          tags: fyp_scraper:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          pip install pip-audit safety
+      
+      - name: Run pip-audit
+        run: |
+          pip-audit -r requirements.txt || true
+        continue-on-error: true
+      
+      - name: Check for secrets in code
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified
+        continue-on-error: true
+

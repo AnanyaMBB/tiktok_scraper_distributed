@@ -20,12 +20,21 @@ import sys
 import asyncio
 import random
 import re
+import tempfile
 from typing import Optional, Dict, Any, List, Set
 from pathlib import Path
 
 # Fix for Windows asyncio subprocess issue with Playwright/Patchright
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+
+# Load environment variables
+from dotenv import load_dotenv
+load_dotenv(dotenv_path=Path(__file__).parent.parent / '.env')
+
+# Add shared directory to path for storage module
+sys.path.append(str(Path(__file__).parent.parent / 'shared'))
+from storage import upload_file, file_exists, list_file_ids
 
 try:
     from patchright.sync_api import sync_playwright, Page, BrowserContext
@@ -37,6 +46,15 @@ except ImportError:
     print("⚠ Patchright not installed, using regular Playwright")
 
 from curl_cffi import requests
+import redis
+
+# Import Celery app for queueing video downloads
+from celery_config import celery_app
+
+
+class BotDetectionError(Exception):
+    """Raised when bot detection is suspected (no API responses intercepted after scrolling)"""
+    pass
 
 
 class HumanBehavior:
@@ -82,14 +100,17 @@ class TikTokProfileScraper:
         output_dir: str = "tiktok_videos",
         user_data_dir: Optional[str] = None,
         headless: bool = False,
-        proxy_config: Optional[Dict] = None
+        proxy_config: Optional[Dict] = None,
+        redis_client: Optional[redis.Redis] = None,
+        queue_downloads: bool = True
     ):
         self.output_dir = output_dir
         self.user_data_dir = user_data_dir or self.DEFAULT_USER_DATA_DIR
         self.headless = headless
         self.proxy_config = proxy_config
+        self.redis_client = redis_client
+        self.queue_downloads = queue_downloads
         
-        os.makedirs(self.output_dir, exist_ok=True)
         os.makedirs(self.user_data_dir, exist_ok=True)
     
     def _get_browser_args(self) -> List[str]:
@@ -130,43 +151,91 @@ class TikTokProfileScraper:
         
         return args
     
-    def _get_user_video_dir(self, username: str) -> str:
-        """Get directory for storing user's video metadata"""
-        video_dir = os.path.join(self.output_dir, "tiktok_video_metadata", username)
-        os.makedirs(video_dir, exist_ok=True)
-        return video_dir
+    def _get_spaces_key(self, username: str, video_id: str) -> str:
+        """Get the Digital Ocean Spaces object key for a video"""
+        return f"tiktok_video_metadata/{username}/{video_id}.json"
     
     def save_video_metadata(self, username: str, video: Dict[str, Any]) -> Optional[str]:
-        """Save individual video metadata to its own file."""
+        """Save individual video metadata to Digital Ocean Spaces."""
         video_id = video.get('id')
         if not video_id:
             return None
         
-        video_dir = self._get_user_video_dir(username)
-        filepath = os.path.join(video_dir, f"{video_id}.json")
+        # Create temp file, upload to DO Spaces, then clean up
+        object_key = self._get_spaces_key(username, video_id)
         
-        with open(filepath, 'w', encoding='utf-8') as f:
-            json.dump(video, f, indent=2, ensure_ascii=False)
-        
-        return filepath
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8') as f:
+                json.dump(video, f, indent=2, ensure_ascii=False)
+                temp_path = f.name
+            
+            # Upload to Digital Ocean Spaces
+            success = upload_file(temp_path, object_key)
+            
+            # Clean up temp file
+            os.unlink(temp_path)
+            
+            if success:
+                return object_key
+            return None
+        except Exception as e:
+            print(f"   ✗ Error saving video {video_id}: {e}")
+            return None
     
     def is_video_already_saved(self, username: str, video_id: str) -> bool:
-        """Check if a video has already been saved"""
-        video_dir = self._get_user_video_dir(username)
-        filepath = os.path.join(video_dir, f"{video_id}.json")
-        return os.path.exists(filepath)
+        """Check if a video already exists in Digital Ocean Spaces"""
+        object_key = self._get_spaces_key(username, video_id)
+        return file_exists(object_key)
     
     def get_saved_video_ids(self, username: str) -> Set[str]:
-        """Get set of already saved video IDs"""
-        video_dir = self._get_user_video_dir(username)
-        if not os.path.exists(video_dir):
-            return set()
+        """Get set of already saved video IDs from Digital Ocean Spaces"""
+        prefix = f"tiktok_video_metadata/{username}/"
+        return list_file_ids(prefix, extension=".json")
+    
+    def queue_video_for_download(self, video_item: Dict[str, Any], username: str) -> bool:
+        """
+        Queue video for download by video_downloader Celery worker.
         
-        video_ids = set()
-        for filename in os.listdir(video_dir):
-            if filename.endswith('.json'):
-                video_ids.add(filename[:-5])  # Remove .json extension
-        return video_ids
+        Args:
+            video_item: Video metadata dict
+            username: TikTok username
+            
+        Returns:
+            True if queued, False if skipped or error
+        """
+        if not self.redis_client or not self.queue_downloads:
+            return False
+            
+        try:
+            video_id = video_item.get('id')
+            if not video_id:
+                return False
+            
+            # Check if already downloaded
+            if self.redis_client.sismember("downloaded_videos", video_id):
+                print(f"      ⊗ Video {video_id} already downloaded")
+                return False
+            
+            # Check if already in queue
+            if self.redis_client.sismember("download_queue", video_id):
+                print(f"      ⊗ Video {video_id} already in queue")
+                return False
+            
+            # Send Celery task for video download
+            celery_app.send_task(
+                'tasks.download_video',
+                args=[video_id, username, video_item]
+            )
+            
+            # Add to download queue set
+            self.redis_client.sadd("download_queue", video_id)
+            
+            print(f"      ✓ Queued video {video_id} for download")
+            return True
+            
+        except Exception as e:
+            print(f"      ✗ Error queuing video: {e}")
+            return False
     
     def get_user_sec_uid(self, username: str) -> Optional[str]:
         """Get secUid from user profile page"""
@@ -225,9 +294,12 @@ class TikTokProfileScraper:
         seen_video_ids: Set[str] = set()
         saved_count = 0
         skipped_count = 0
+        queued_count = 0
+        scroll_count = 0  # Track scrolls for bot detection check
         
-        # API response buffer
+        # API response buffer and tracking
         api_responses: List[Dict] = []
+        api_responses_received = 0  # Track total API responses intercepted for bot detection
         
         with sync_playwright() as p:
             context_options = {
@@ -322,11 +394,13 @@ class TikTokProfileScraper:
                 
                 # Set up RESPONSE interception (not request)
                 def handle_response(response):
+                    nonlocal api_responses_received
                     if 'api/post/item_list/' in response.url:
                         try:
                             data = response.json()
                             if data and 'itemList' in data:
                                 api_responses.append(data)
+                                api_responses_received += 1
                                 print(f"   ✓ Intercepted response with {len(data.get('itemList', []))} videos")
                         except Exception:
                             pass
@@ -357,7 +431,6 @@ class TikTokProfileScraper:
                     time.sleep(30)
                 
                 # Scroll and collect videos
-                scroll_count = 0
                 no_new_videos_count = 0
                 max_scrolls = 200  # Safety limit
                 
@@ -384,11 +457,15 @@ class TikTokProfileScraper:
                                 skipped_count += 1
                                 continue
                             
-                            # Save video
+                            # Save video metadata
                             filepath = self.save_video_metadata(username, video)
                             if filepath:
                                 saved_count += 1
                                 all_videos.append(video)
+                                
+                                # Queue for video download
+                                if self.queue_video_for_download(video, username):
+                                    queued_count += 1
                             
                             # Check max limit
                             if max_videos and len(all_videos) >= max_videos:
@@ -451,6 +528,10 @@ class TikTokProfileScraper:
                         if filepath:
                             saved_count += 1
                             all_videos.append(video)
+                            
+                            # Queue for video download
+                            if self.queue_video_for_download(video, username):
+                                queued_count += 1
                 
             except Exception as e:
                 print(f"✗ Error: {e}")
@@ -467,9 +548,17 @@ class TikTokProfileScraper:
         print(f"Scrape complete for @{username}")
         print(f"Total videos saved this session: {saved_count}")
         print(f"Videos skipped (already existed): {skipped_count}")
+        print(f"Videos queued for download: {queued_count}")
         print(f"Total unique videos seen: {len(seen_video_ids)}")
-        print(f"Output directory: {self._get_user_video_dir(username)}")
+        print(f"API responses intercepted: {api_responses_received}")
+        print(f"Saved to DO Spaces: tiktok_video_metadata/{username}/")
         print(f"{'='*70}")
+        
+        # Bot detection check: If we scrolled but got 0 API responses, likely blocked
+        if api_responses_received == 0 and scroll_count > 0:
+            raise BotDetectionError(
+                f"No API responses intercepted after {scroll_count} scrolls for @{username} - likely bot detection"
+            )
         
         return all_videos
     

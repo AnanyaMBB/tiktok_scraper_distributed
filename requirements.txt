@@ -1,3 +1,25 @@
-yt-dlp==2023.12.30
-gallery-dl==1.26.0
-gevent==24.2.1
+# Core dependencies
+python-dotenv>=1.0.0
+redis>=4.5.0
+celery>=5.3.0
+boto3>=1.28.0
+
+# Web scraping
+playwright>=1.40.0
+patchright>=1.0.0
+curl-cffi>=0.5.0
+
+# Video downloading
+yt-dlp>=2023.12.30
+gallery-dl>=1.26.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Async
+gevent>=24.2.1
+
+# Testing (optional - also in requirements-dev.txt)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.1

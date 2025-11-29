@@ -29,8 +29,11 @@ sys.path.append(str(Path(__file__).parent.parent / 'shared'))
 # Import Celery app from your existing config
 from celery_config import celery_app
 
+# Import proxy manager from shared
+from proxy import ProxyManager
+
 # Import the profile scraper we built
-from profile_scraper_v5 import TikTokProfileScraper
+from profile_scraper_v5 import TikTokProfileScraper, BotDetectionError
 
 # Redis client for tracking
 redis_client = redis.Redis(
@@ -91,29 +94,31 @@ def scrape_profile(self, username: str, max_videos: Optional[int] = None):
         return result
     
     try:
-        # Build proxy config from environment or use default
+        # Get datacenter proxy from ProxyManager (configured in shared/proxy.py)
         proxy_config = None
-        proxy_server = os.getenv("PROXY_SERVER")
-        proxy_username = os.getenv("PROXY_USERNAME")
-        proxy_password = os.getenv("PROXY_PASSWORD")
+        proxy_manager = ProxyManager()
         
-        if proxy_server:
+        if proxy_manager.datacenter_host and proxy_manager.datacenter_port:
             proxy_config = {
-                "server": proxy_server,
+                "server": f"http://{proxy_manager.datacenter_host}:{proxy_manager.datacenter_port}",
             }
-            if proxy_username:
-                proxy_config["username"] = proxy_username
-            if proxy_password:
-                proxy_config["password"] = proxy_password
-            print(f"[Task {self.request.id}] Using proxy: {proxy_server}")
+            if proxy_manager.datacenter_username:
+                proxy_config["username"] = proxy_manager.datacenter_username
+            if proxy_manager.datacenter_password:
+                proxy_config["password"] = proxy_manager.datacenter_password
+            print(f"[Task {self.request.id}] Using datacenter proxy: {proxy_config['server']}")
+        else:
+            print(f"[Task {self.request.id}] No datacenter proxy configured")
 
         print("task proxy config: ", proxy_config)
         
-        # Initialize the scraper
+        # Initialize the scraper with redis_client for download queueing
         scraper = TikTokProfileScraper(
             output_dir=os.getenv("OUTPUT_DIR", "tiktok_video_metadata"),
             headless=os.getenv("HEADLESS", "false").lower() == "true",
-            proxy_config=proxy_config
+            proxy_config=proxy_config,
+            redis_client=redis_client,
+            queue_downloads=True
         )
         
         # Run the scrape
@@ -131,6 +136,13 @@ def scrape_profile(self, username: str, max_videos: Optional[int] = None):
         redis_client.sadd("scraped_usernames", username)
         
         print(f"[Task {self.request.id}] Completed @{username}: {len(videos)} videos saved")
+    
+    except BotDetectionError as e:
+        # Bot detection - DO NOT mark as scraped, let Celery retry
+        print(f"[Task {self.request.id}] ⚠ Bot detection for @{username}: {e}")
+        result['error'] = str(e)
+        result['bot_detection'] = True
+        raise  # Re-raise for Celery retry
         
     except Exception as e:
         print(f"[Task {self.request.id}] Error scraping @{username}: {e}")
