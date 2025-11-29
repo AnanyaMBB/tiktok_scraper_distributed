@@ -71,7 +71,7 @@ def main():
         '-A', 'video_downloader',
         'worker',
         '--pool=gevent',
-        '--concurrency=4',
+        '--concurrency=1',
         '--loglevel=info',
         '--max-tasks-per-child=100',
         '--hostname=video_downloader@%h',
